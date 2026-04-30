@@ -28,9 +28,35 @@ A folder of Markdown files that describe how you trade. Claude reads them and st
 
 ```
 pip install -r requirements.txt
-cp .env.example .env       # then edit .env with your account size
+cp .env.example .env       # then edit .env with your account size (Windows: copy .env.example .env)
 python tools/run.py refresh
 claude
 ```
 
-In your first Claude session, it'll ask you to confirm setups + capture your current bias for ES, NQ, gold/silver, SPY/QQQ.
+## First Claude session — paste this exact prompt
+
+When Claude opens, copy-paste this entire block as your first message:
+
+```text
+I just cloned and installed edge_lab. You are my personal day-trading analyst.
+
+1. Read CLAUDE.md fully — it's your instructions.
+2. Read every file in framework/ to learn my rules (2 named ICT setups, daily gates, session hours, level criteria, risk math).
+3. Read both files in playbook/ — those are the step-by-step execution guides for SETUP-1 (Sweep + FVG continuation) and SETUP-2 (Inverse FVG rejection).
+4. Read context/market-snapshot.md to see what tools/run.py refresh just pulled.
+
+Then run this exact sequence:
+
+A. Print a 3-line summary of what you understood about my framework.
+B. Ask me 3 confirmation questions:
+   - SETUP-1 = sweep + FVG continuation, stop tight past sweep wick — yes?
+   - Daily gate = down $500 OR 3 consecutive losers, whichever first — yes?
+   - Hours = 6:30-10 AM PT primary, 3pm/5pm PT occasional — yes?
+C. After I confirm all three, ask me my current bias on ES, NQ, gold/silver, SPY/QQQ — one sentence each. Write the answers to context/macro-outlook.md and update the timestamp.
+D. Then prompt me to fill levels/macro-levels.md and levels/watchlist.md by asking which instruments I want to start tracking actively.
+E. Once levels are populated, mark the system live: "edge_lab is live. Try saying 'I'm watching ES at [level] for a sweep+FVG continuation' to add a watchlist entry."
+
+Output style: concise, direct, no walls of text, brief insights only when useful, one question at a time. Match this style every response.
+```
+
+That's it. Claude takes over from there.
